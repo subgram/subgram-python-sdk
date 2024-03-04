@@ -31,9 +31,38 @@ class CustomerEventObject(BaseModel):
     language_code: str | None
 
 
+class ProductEventObject(BaseModel):
+    id: int
+    title: str
+    description: str
+
+
+class PlanEventObject(BaseModel):
+    id: int
+    title: str
+    interval: str
+    trial_interval: str | None = None 
+    subtitle: str | None = None
+
+
+class PlanPriceEventObject(BaseModel):
+    id: int
+    amount_cents: int
+    currency: str
+
+
+class PaymentProviderEventObject(BaseModel):
+    id: int
+    type: str
+
+
 class SubscriptionEventObject(BaseModel):
     status: SubscriptionStatusResponse
     customer: CustomerEventObject
+    product: ProductEventObject
+    payment_provider: PaymentProviderEventObject
+    plan: PlanEventObject
+    plan_price: PlanPriceEventObject
 
 
 class Event(BaseModel):

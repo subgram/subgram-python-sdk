@@ -1,9 +1,9 @@
 [project]
 name = "subgram"
-version = "0.0.2"
+version = "0.0.3"
 description = "Python SDK for subgram.io"
 authors = [
-  { name="Daniil Okhlopkov", email="danokhlopkov@gmail.com" },
+  { name="Karim Iskakov", email="kar.iskakov@gmail.com" },
 ]
 dependencies = [
     "httpx>=0.23.0, <1",
