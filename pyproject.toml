@@ -1,6 +1,6 @@
 [project]
 name = "subgram"
-version = "0.0.3"
+version = "0.0.4"
 description = "Python SDK for subgram.io"
 authors = [
   { name="Karim Iskakov", email="kar.iskakov@gmail.com" },
