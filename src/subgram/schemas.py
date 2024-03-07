@@ -1,5 +1,7 @@
-from uuid import UUID
 from datetime import datetime
+from typing import Optional
+from uuid import UUID
+
 from pydantic import BaseModel
 
 from subgram.constants import EventType
@@ -14,10 +16,10 @@ class SubscriptionStatusResponse(BaseModel):
     subscription_uuid: UUID
     status: str
 
-    started_at: datetime | None
-    ending_at: datetime | None
-    cancelled_at: datetime | None
-    
+    started_at: Optional[datetime] = None
+    ending_at: Optional[datetime] = None
+    cancelled_at: Optional[datetime] = None
+
     user_has_access: bool
     can_be_purchased: bool
     can_be_cancelled: bool
@@ -26,9 +28,9 @@ class SubscriptionStatusResponse(BaseModel):
 
 class CustomerEventObject(BaseModel):
     telegram_id: int
-    name: str | None
-    email: str | None
-    language_code: str | None
+    name: Optional[str] = None
+    email: Optional[str] = None
+    language_code: Optional[str] = None
 
 
 class ProductEventObject(BaseModel):
@@ -41,8 +43,8 @@ class PlanEventObject(BaseModel):
     id: int
     title: str
     interval: str
-    trial_interval: str | None = None 
-    subtitle: str | None = None
+    trial_interval: Optional[str] = None
+    subtitle: Optional[str] = None
 
 
 class PlanPriceEventObject(BaseModel):

@@ -1,10 +1,11 @@
-import httpx
-import logging
 import asyncio
+import logging
+from typing import AsyncGenerator, Optional
 
-from typing import AsyncGenerator
+import httpx
 
 from subgram.schemas import CheckoutPageResponse, Event
+
 
 class Subgram:
 
@@ -18,8 +19,8 @@ class Subgram:
         return httpx.AsyncClient(base_url=self.BASE_URL, timeout=10.0)
 
     async def has_access(
-        self, 
-        user_id: int, 
+        self,
+        user_id: int,
         product_id: int,
     ) -> bool:
         async with self.client as client:
@@ -29,17 +30,16 @@ class Subgram:
 
             if response.status_code != 200:
                 return False
-            
+
             subscription_status = response.json()
             return subscription_status.get("has_access", False)
-
 
     async def create_checkout_page(
         self,
         product_id: int,
         user_id: int,  # telegram user id
-        name: str, 
-        language_code: str | None = None,
+        name: str,
+        language_code: Optional[str] = None,
     ) -> CheckoutPageResponse:
         async with self.client as client:
             response = await client.post(
@@ -51,7 +51,6 @@ class Subgram:
                 },
             )
             return CheckoutPageResponse.model_validate_json(response.read())
-
 
     async def event_listener(self, timeout: float = 2) -> AsyncGenerator[Event, None]:
         event_id = 0
@@ -74,4 +73,3 @@ class Subgram:
                     yield event
 
                 await asyncio.sleep(timeout)
-
